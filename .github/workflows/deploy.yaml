@@ -1,0 +1,49 @@
+name: Deploy to Kubernetes
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-south-1
+    # FRONTEND IMAGE
+
+    - name: Build frontend image
+      run: |
+        docker build -t frontend ./frontend
+
+    - name: Tag frontend image
+      run: |
+        docker tag frontend:latest public.ecr.aws/w9n4s9h7/3-tier-frontend:latest
+
+    - name: Push frontend image
+      run: |
+        docker push public.ecr.aws/w9n4s9h7/3-tier-frontend:latest
+
+    # BACKEND IMAGE
+
+    - name: Build backend image
+      run: |
+        docker build -t backend ./backend
+
+    - name: Tag backend image
+      run: |
+        docker tag backend:latest public.ecr.aws/w9n4s9h7/3-tier-backend:latest
+
+    - name: Push backend image
+      run: |
+        docker push public.ecr.aws/w9n4s9h7/3-tier-backend:latest
