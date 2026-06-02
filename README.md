@@ -366,15 +366,15 @@ kubectl get nodes
 
 ## Frontend UI
 
-*Add Screenshot Here*
+<img width="1013" height="630" alt="Image" src="https://github.com/user-attachments/assets/7a149bdf-14f0-4752-85bf-caa9437576da" />
 
 ## Kubernetes Pods
 
-*Add Screenshot Here*
+<img width="1003" height="379" alt="Image" src="https://github.com/user-attachments/assets/c305e918-ef0b-4fff-adfe-944fbd2b3d8c" />
 
 ## GitHub Actions Pipeline
 
-*Add Screenshot Here*
+In Process
 
 ---
 
