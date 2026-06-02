@@ -1,0 +1,49 @@
+Steps: 
+Check file in GitHub!
+IAM User -> Administrator access 
+than, typed aws configure in EC2 Terminal
+- given the access token and secret access token
+ 
+AWS ECR -> create repository (3-tier-frontend) 
+Why?: This will store docker image same as dockerHUB but here its in aws
+
+than, view push commands option - click
+- followed the commands
+	docker build -t 3-tier-frontend .
+	docker tag 3-tier-frontend:latest
+	docker push
+-pushed the docker image 
+
+K8S:
+-deploy.yaml: will form containers i.e pods
+-secrets.yaml: will give passwords in secret form
+-service.yaml: will make deployement accessable. Act as an middleware to link (eg: database to backend)'
+
+Kubectl Commands to work the above files:
+
+1. kubectl create namespace three-tier (three-tier as in deployment.yaml this name is used)
+
+2. kubectl apply -f [deployment.yaml_file name]
+
+# to delete namespace: kubectl delete namespace [name]
+
+3. kubectl get namespaces
+
+4. kubectl get deployment -n three-tier [for checking the deployment.yaml started executing?]
+
+5. kubectl apply -f secrets.yaml [to attach secrets.yaml file]
+
+6. kubectl get pods -n three-tier [same as docker ps]l
+
+7. kubectl apply -f service.yaml
+
+-- kubectl get svc -n three-tier
+--kubectl describe svc api -n three-tier
+
+8. cluster set up done 
+
+9. to connect it to outer world -> use ALB (AWS Load Balancer) over EKS cluster to manage deployments
+--kubectl get deployment -n kube-system aws-load-balancer-controller (to check ALB is linked b/w EKS cluster and outer world!
+Act as bridge)
+
+10. For Routing(from files to files, backend to database [3-tier conect]) - Ingress controller 

@@ -1,0 +1,36 @@
+EKS Cluster Temporary Stop & Restart Notes
+--------------------------------------------------------------
+Cluster Details
+Cluster Name  : three-tier-cluster
+Nodegroup Name: ng-db95b534
+Region        : ap-south-1
+
+Step 1 — Set AWS Region
+
+Run before eksctl commands:
+
+-export AWS_REGION=ap-south-1
+
+-eksctl get cluster
+
+NAME                    REGION          EKSCTL CREATED
+three-tier-cluster      ap-south-1      True
+
+-eksctl get nodegroup --cluster three-tier-cluster
+
+->stop all pods while keeping configuration safe
+eksctl scale nodegroup \
+--cluster three-tier-cluster \
+--name ng-db95b534 \
+--nodes 0
+
+->for getting everything back
+eksctl scale nodegroup \
+--cluster three-tier-cluster \
+--name ng-db95b534 \
+--nodes 2
+
+-> then verify
+
+kubectl get nodes
+kubectl get pods -n three-tier

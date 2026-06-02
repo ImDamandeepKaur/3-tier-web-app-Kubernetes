@@ -1,0 +1,5 @@
+Problems faced:
+- Managing storage 
+	df -h (shows disk space specs)
+	docker container prune (to remove stopped containers)
+	docker system prune -a -f
